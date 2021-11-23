@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from "../modal";
 
 import "./app.css";
 
@@ -10,6 +11,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <Modal />
         <header>
           <h1>Тренажер слепой печати</h1>
         </header>
