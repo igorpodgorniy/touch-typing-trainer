@@ -1,0 +1,118 @@
+header {
+  align-self: center;
+}
+
+.app {
+  width: 960px;
+  margin: 48px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.container {
+  width: 960px;
+  margin: 0 auto;
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.container-item {
+  padding: 32px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+}
+
+.motivation-text {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  padding: 16px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 1.5px;
+  box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.07);
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat div {
+  text-align: center;
+}
+
+.redo {
+  color: #d9480f;
+}
+
+/* Цвета текста в разных состояниях */
+.passed-text {
+  color: #087f5b;
+}
+
+.error-text {
+  color: #d9480f;
+}
+
+.wrong {
+  background-color: #d9480f;
+  color: #fff;
+  padding: 2px 1px;
+  border-radius: 4px;
+}
+
+.current-text {
+  background-color: #087f5b;
+  color: #fff;
+  padding: 2px 1px;
+  border-radius: 4px;
+}
+
+.stat-item {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 500;
+  color: #adb5bd;
+  letter-spacing: 1px;
+  padding-top: 8px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 500;
+  color: #087f5b;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+label {
+  font-size: 12px;
+}
+
+input {
+  margin-top: 6px;
+  padding: 6px;
+  border-radius: 6px;
+  display: block;
+}
+
+button {
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #087f5b;
+  background-color: #087f5b;
+  padding: 8px;
+  border-radius: 6px;
+}
