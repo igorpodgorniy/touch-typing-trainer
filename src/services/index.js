@@ -1,2 +1,2 @@
-import getText from "./services";
-export default getText;
+import textToArr from "./services";
+export default textToArr;

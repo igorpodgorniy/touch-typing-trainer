@@ -5,4 +5,17 @@ async function getText() {
   return await text;
 }
 
-export default getText;
+async function textToArr() {
+  let textAPI = await getText();
+  let textArr = [];
+  for (let i = 0; i < textAPI.length; i++) {
+    if (i === 0) {
+      textArr.push({ char: textAPI[i], style: 1, current: true });
+    } else {
+      textArr.push({ char: textAPI[i], style: 0, current: false });
+    }
+  }
+  return textArr;
+}
+
+export default textToArr;
