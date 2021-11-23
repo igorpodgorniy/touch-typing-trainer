@@ -21,6 +21,7 @@ export default class Modal extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+    this.props.onAdd(this.state.value);
     this.setState({
       text: "",
       classNames: "fixed-overlay fixed-overlay-modal close",

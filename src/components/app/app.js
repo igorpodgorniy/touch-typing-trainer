@@ -14,6 +14,7 @@ export default class App extends React.Component {
       text: [],
     };
     this.textArr = this.textArr.bind(this);
+    this.addName = this.addName.bind(this);
   }
 
   componentDidMount() {
@@ -24,23 +25,33 @@ export default class App extends React.Component {
     textToArr().then((result) =>
       this.setState(() => {
         return {
+          firstName: "",
           text: result,
         };
       })
     );
   }
 
+  addName(value) {
+    this.setState(() => {
+      return {
+        firstName: value,
+      };
+    });
+  }
+
   render() {
-    const { text } = this.state;
+    const { text, firstName } = this.state;
+    console.log(firstName);
     return (
       <div>
         {text.length !== 0 && (
           <div className="app">
-            <Modal />
+            <Modal onAdd={this.addName} />
             <header>
               <h1>Тренажер слепой печати</h1>
             </header>
-            <Motivation />
+            <Motivation firstName={firstName} />
             <article>
               <Text text={text} />
             </article>

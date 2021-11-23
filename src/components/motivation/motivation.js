@@ -2,8 +2,11 @@ import React from "react";
 
 import "./motivation.css";
 
-const Motivation = () => {
-  return <div className="container-item motivation-text">Привет, Игорь.</div>;
+const Motivation = ({ firstName }) => {
+  const username = firstName ? `, ${firstName}` : "";
+  let motivation = `Привет${username}.`;
+  let classNames = "container-item motivation-text";
+  return <div className={classNames}>{motivation}</div>;
 };
 
 export default Motivation;
