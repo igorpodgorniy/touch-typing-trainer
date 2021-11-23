@@ -24,9 +24,14 @@ export default class App extends React.Component {
       time: "00:00",
       classNameStat: "stat container-item",
     };
+    this.sec = 0;
+    this.min = 0;
     this.textArr = this.textArr.bind(this);
     this.addName = this.addName.bind(this);
     this.clickMouse = this.clickMouse.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.keyListener = this.keyListener.bind(this);
+    this.keyDown = this.keyDown.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +49,8 @@ export default class App extends React.Component {
   }
 
   addName(value) {
+    this.startTimer();
+    this.keyDown();
     this.setState(() => {
       return {
         firstName: value,
@@ -71,6 +78,118 @@ export default class App extends React.Component {
         };
       });
     });
+  }
+
+  startTimer() {
+    const timer = setTimeout(() => {
+      this.sec++;
+      if (this.sec >= 60) {
+        this.sec = 0;
+        this.min++;
+        if (this.min >= 99) {
+          this.min = 99;
+          this.sec = 59;
+        }
+      }
+      this.startTimer();
+      this.setState(({ stat, text }) => {
+        while (!stat.finish) {
+          let { speed, finish, ...itemProps } = stat;
+          const divider =
+            this.min * 60 + this.sec === 0 ? 1 : this.min * 60 + this.sec;
+          speed = ((stat.symbols * 60) / divider).toFixed(0);
+          if (text.length === stat.symbols) {
+            clearTimeout(timer);
+            return {
+              classNameStat: "stat container-item finish",
+              stat: {
+                ...itemProps,
+                speed: speed,
+                finish: true,
+              },
+            };
+          } else {
+            return {
+              stat: {
+                ...itemProps,
+                speed: speed,
+                finish: finish,
+              },
+              time: `${this.min > 9 ? this.min : "0" + this.min}:${
+                this.sec > 9 ? this.sec : "0" + this.sec
+              }`,
+            };
+          }
+        }
+      });
+    }, 1000);
+  }
+
+  keyListener(e) {
+    this.setState(({ text, stat, time }) => {
+      const index = text.findIndex((elem) => elem.current);
+      const beforArr = text.slice(0, index + 1);
+      const afterArr = text.slice(index + 1);
+      if (text[index].char === e.key && text[index].current) {
+        beforArr[beforArr.length - 1] = {
+          char: text[index].char,
+          style: 2,
+          current: false,
+        };
+        if (afterArr.length !== 0) {
+          afterArr[0] = {
+            char: text[index + 1].char,
+            style: 1,
+            current: true,
+          };
+        } else {
+          window.removeEventListener("keydown", this.keyListener);
+        }
+        let { symbols, progress, speed, ...itemProps } = stat;
+        const newArr = [...beforArr, ...afterArr];
+        symbols++;
+        progress = ((symbols * 100) / text.length).toFixed(0);
+        const min = Number(time.slice(0, 2));
+        const sec = Number(time.slice(3));
+        const divider = min * 60 + sec === 0 ? 1 : min * 60 + sec;
+        speed = ((symbols * 60) / divider).toFixed(0);
+        return {
+          text: newArr,
+          stat: {
+            ...itemProps,
+            symbols: symbols,
+            progress: progress,
+            speed: speed,
+          },
+        };
+      } else if (e.shiftKey) {
+        return;
+      } else {
+        let { errors, accuracy, ...itemProps } = stat;
+        if (text[index].style !== 3) {
+          errors++;
+          accuracy = (100 - (errors * 100) / text.length).toFixed(1);
+        }
+        beforArr[beforArr.length - 1] = {
+          char: text[index].char,
+          style: 3,
+          current: true,
+        };
+        const newArr = [...beforArr, ...afterArr];
+        return {
+          text: newArr,
+          stat: {
+            ...itemProps,
+            errors: errors,
+            accuracy: accuracy,
+          },
+        };
+      }
+    });
+  }
+
+  keyDown() {
+    window.addEventListener("keydown", this.keyListener);
   }
 
   render() {
