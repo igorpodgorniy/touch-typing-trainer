@@ -11,10 +11,22 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstName: "",
       text: [],
+      stat: {
+        symbols: 0,
+        progress: "0",
+        errors: 0,
+        speed: 0,
+        accuracy: "100",
+        finish: false,
+      },
+      time: "00:00",
+      classNameStat: "stat container-item",
     };
     this.textArr = this.textArr.bind(this);
     this.addName = this.addName.bind(this);
+    this.clickMouse = this.clickMouse.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +37,6 @@ export default class App extends React.Component {
     textToArr().then((result) =>
       this.setState(() => {
         return {
-          firstName: "",
           text: result,
         };
       })
@@ -40,9 +51,30 @@ export default class App extends React.Component {
     });
   }
 
+  clickMouse() {
+    textToArr().then((result) => {
+      this.sec = 0;
+      this.min = 0;
+      this.setState(() => {
+        return {
+          text: result,
+          stat: {
+            symbols: 0,
+            progress: "0",
+            errors: 0,
+            speed: 0,
+            accuracy: "100",
+            finish: false,
+          },
+          time: "00:00",
+          classNameStat: "stat container-item",
+        };
+      });
+    });
+  }
+
   render() {
-    const { text, firstName } = this.state;
-    console.log(firstName);
+    const { stat, text, firstName, classNameStat, time } = this.state;
     return (
       <div>
         {text.length !== 0 && (
@@ -55,7 +87,12 @@ export default class App extends React.Component {
             <article>
               <Text text={text} />
             </article>
-            <Stat />
+            <Stat
+              stat={stat}
+              time={time}
+              clickMouse={this.clickMouse}
+              classNameStat={classNameStat}
+            />
           </div>
         )}
       </div>
