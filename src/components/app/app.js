@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "../modal";
+import Motivation from "../motivation";
 
 import "./app.css";
 
@@ -15,9 +16,7 @@ export default class App extends React.Component {
         <header>
           <h1>Тренажер слепой печати</h1>
         </header>
-        <div className="container-item motivation-text passed-text">
-          Привет, Игорь.
-        </div>
+        <Motivation />
         <article>
           <div className="text container-item">
             <span className="passed-text">C</span>
