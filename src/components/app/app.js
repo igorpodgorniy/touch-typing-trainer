@@ -62,6 +62,7 @@ export default class App extends React.Component {
     textToArr().then((result) => {
       this.sec = 0;
       this.min = 0;
+      this.keyDown();
       this.setState(() => {
         return {
           text: result,
@@ -202,7 +203,7 @@ export default class App extends React.Component {
             <header>
               <h1>Тренажер слепой печати</h1>
             </header>
-            <Motivation firstName={firstName} />
+            <Motivation firstName={firstName} text={text} stat={stat} />
             <article>
               <Text text={text} />
             </article>
