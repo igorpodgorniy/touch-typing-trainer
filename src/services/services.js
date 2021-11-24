@@ -1,5 +1,5 @@
 async function getText() {
-  const text = await fetch("https://fish-text.ru/get?format=json&number=1")
+  const text = await fetch("https://fish-text.ru/get?format=json&number=3")
     .then((response) => response.json())
     .then((result) => result.text);
   return await text;
