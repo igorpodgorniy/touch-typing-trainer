@@ -29,13 +29,13 @@
 git clone https://github.com/igorpodgorniy/touch-typing-trainer.git
 ```
 
-Для установки зависимостей после экспорта проекта к себе на компьютер:
+Для установки зависимостей:
 
 ```
 npm install
 ```
 
-Для запуска:
+Для запуска на localhost:3000:
 
 ```
 npm start
